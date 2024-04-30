@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Esmati's Pico Fermi Unguessable Number Generator</title>
+</head>
+<body>
+  <h1>Esmati's Pico Fumi Unguessable Number Generator</h1>
+  <p>This generator creates 5-digit Pico Fumi numbers that are extremely difficult to guess.</p>
+  <form>
+    <input type="submit" value="Generate">
+  </form>
+  <br>
+  <div id="result"></div>
+  <script>
+    function generateNumber() {
+      // Start with a random 5-digit number.
+      var number = Math.floor(Math.random() * 90000) + 10000;
+
+      // Check if the number has any repeating digits.
+      var digits = number.toString().split('');
+      for (var i = 0; i < digits.length; i++) {
+        for (var j = i + 1; j < digits.length; j++) {
+          if (digits[i] == digits[j]) {
+            // If the number has any repeating digits, generate a new number.
+            return generateNumber();
+          }
+        }
+      }
+
+      // Sort the digits in the number in descending order.
+      digits.sort(function(a, b) {
+        return b - a;
+      });
+
+      // Return the number.
+      return digits.join('');
+    }
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Generate a 5-digit unguessable Pico Fermi number.
+      var number = generateNumber();
+
+      // Display the number.
+      document.querySelector('#result').innerHTML = number;
+    });
+  </script>
+</body>
+</html>
